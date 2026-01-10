@@ -1,0 +1,54 @@
+  <nav
+      x-data="{ scrolled: false, open: false }"
+      @scroll.window="scrolled = window.scrollY > 50"
+      :class="{ 
+        'bg-warna1 shadow-md': scrolled || open, 
+        'bg-transparent': !scrolled && !open 
+      }"
+      class="fixed w-full transition-colors duration-300 z-50"
+    >
+      <div class="flex justify-between items-center px-6 md:px-10">
+        <div class="flex justify-center items-center">
+          <div class="w-20 h-20">
+        <img src="{{url_for("static", filename='img/logo-utd.svg')}}"  alt="">
+        </div>
+         <p class="text-white font-bold text-lg md:text-xl">
+          Underwater Trash Detection
+        </p>
+        </div>
+     
+        <button
+          @click="open = !open"
+          class="text-white text-2xl focus:outline-none md:hidden"
+        >
+          <i x-show="!open" class="fa-solid fa-bars"></i>
+          <i x-show="open" class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Menu Navigasi (Desktop) -->
+        <div class="hidden md:flex space-x-8 text-lg text-white font-semibold">
+          <a href="#beranda" onclick="document.getElementById('section1').scrollIntoView({ behavior: 'smooth' });"  class="hover:text-gray-300 transition">Beranda</a>
+          <a href="#deteksi" onclick="document.getElementById('scroll-btn').scrollIntoView({ behavior: 'smooth' });" class="hover:text-gray-300 transition">Deteksi</a>
+          <a href="#model" onclick="document.getElementById('section3').scrollIntoView({ behavior: 'smooth' });" class="hover:text-gray-300 transition">Evaluasi</a>
+          <a href="#dataset" onclick="document.getElementById('section4').scrollIntoView({ behavior: 'smooth' });" class="hover:text-gray-300 transition">Dataset</a>
+        </div>
+      </div>
+
+      <!-- Menu Dropdown (Mobile & Tablet) -->
+      <div
+        x-show="open"
+        x-transition
+        class="md:hidden text-white font-semibold space-y-4 px-6 pb-4 bg-warna1"
+      >
+        <a href="#beranda" class="block hover:text-gray-300 transition"
+          >Beranda</a
+        >
+        <a href="#deteksi" class="block hover:text-gray-300 transition"
+          >Deteksi</a
+        >
+        <a href="#model" class="block hover:text-gray-300 transition">Model</a>
+        <a href="#dataset" class="block hover:text-gray-300 transition"
+          >Dataset</a
+        >
+      </div>
+    </nav>

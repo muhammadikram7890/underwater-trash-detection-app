@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@source '../**/*.jinja';
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --color-warna1: #012367;
+  --color-warna2: #0060AD;
+  --color-warna3: #F9CC59;
+  --color-warna4: #DFF3FC;
+  --color-warna5: #72C2E6;
+}
+
+.file-input-primary {
+    --btn-color: #012367 !important;
+    --input-color: #012367 !important;
+}

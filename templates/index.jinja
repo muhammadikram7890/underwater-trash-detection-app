@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deteksi Sampah Bawah Air</title>
+    <link href="{{ url_for('static', filename='output.css') }}" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    {% include 'components/navbar.jinja' %}
+    <section class="flex w-full justify-center items-center" id="section1">
+      <main class="w-full min-h-screen flex flex-col items-center bg-cover bg-center shadow-2xl" style="background-image:url({{ url_for('static', filename='img/bg.webp') }})">
+        <div class="bg-warna2/50 w-full min-h-screen flex items-center">
+          <div class="px-6 sm:px-10 md:px-20 lg:px-32">
+            <p class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-4 text-white">Deteksi Sampah Bawah Air</p>
+            <p class="text-base sm:text-lg md:text-xl text-justify mb-6 text-white max-w-[800px]">This website is an AI-based application that automatically detects plastic waste underwater using the YOLO (You Only Look Once) model integrated with the EMA (Efficient Multi-Scale Attention) module. The system can recognize various types of plastic such as bottles, plastic bags, and plastic fragments in underwater images or videos.</p>
+            <button id="scroll-btn" onclick="document.getElementById('scroll-btn').scrollIntoView({ behavior: 'smooth' });" class="text-base sm:text-lg md:text-xl bg-warna3 cursor-pointer text-black px-6 sm:px-8 py-2 font-bold rounded-lg hover:bg-warna3/70 transition">Deteksi</button>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="flex w-full justify-center items-center">
+      <main class="w-full flex flex-col items-center bg-cover bg-center shadow-2xl bg-warna4 py-14 px-6 sm:px-10 md:px-16">
+        <div class="flex justify-center items-center flex-col w-full max-w-3xl">
+          <p class="text-2xl sm:text-3xl md:text-4xl font-bold text-warna1 mb-8 text-center">Deteksi Sampah Bawah Air</p>
+
+          <form method="POST" id="upload-form" enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
+            <label class="text-warna1 text-base sm:text-lg font-semibold mb-3 text-center">Pilih Model :</label>
+            <input type="hidden" name="preview" value="true" id="preview-hidden">
+            <div class="text-warna1 text-lg sm:text-xl flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+              <label class="inline-flex items-center">
+                <input type="radio" name="model" value="base" {% if selected_model == 'base' %}checked{% endif %} class="radio bg-blue-100 border-blue-300 checked:bg-blue-200 checked:text-warna1 checked:border-warna1 mr-2" />
+                <span class="font-bold italic">YOLOv8 Base</span>
+              </label>
+
+              <label class="inline-flex items-center">
+                <input type="radio" name="model" value="ema" {% if selected_model == 'ema' %}checked{% endif %} class="radio bg-blue-100 border-blue-300 checked:bg-blue-200 checked:text-warna1 checked:border-warna1 mr-2" />
+                <span class="font-bold italic">YOLOv8+EMA</span>
+              </label>
+            </div>
+
+            <!-- Input File -->
+            <input type="file"  id="file-input" class="hidden" name="image" required />
+            <button  id="upload-btn" class="mb-5 bg-gradient-to-r from-warna1 to-warna5 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl rounded-lg cursor-pointer flex items-center">
+              <i class="fa-solid fa-arrow-up-from-bracket mr-2 text-white"></i>
+              <span class="font-semibold text-white">Unggah File</span>
+            </button>
+          </form> 
+              {% if message %}
+           <p class="text-red-600 italic text-lg">{{  message }}</p>
+          {% endif %}
+
+            <!-- Preview Gambar -->
+            {% if preview_image %}
+               <p class="text-warna1 font-semibold mb-2">Preview File:</p>
+              {% if preview_image.endswith('.mp4') %}
+                 <video controls class="mb-5 max-w-full rounded-lg shadow-md">
+                  <source src="{{ url_for('static', filename=preview_image) }}" type="video/mp4">
+                </video>
+              {% else %}
+                <img src="{{ url_for('static', filename=preview_image) }}" alt="Gambar Preview" class="mb-5 max-w-full rounded-lg shadow-md" />
+              {% endif %}
+
+              <!-- Tombol Deteksi -->
+               <form method="POST" id="upload-form" enctype="multipart/form-data">
+                <input type="hidden" name="detect" value="true">
+                <input type="hidden" name="image_path" value="{{ preview_image }}">
+                <input type="hidden" name="model" value="{{ selected_model }}">
+                <button type="submit" class="mb-8 bg-gradient-to-r from-warna1 to-warna5 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl rounded-lg cursor-pointer transition hover:opacity-80">
+                  <span class="font-semibold text-white">Mulai Deteksi</span>
+               </button>
+              </form>
+            {% endif %}
+
+          <!-- Hasil Deteksi -->
+          {% if result_image %}
+             <p class="text-lg sm:text-xl font-bold text-warna1 mb-4 text-center mt-4">Hasil Deteksi Model {{ selected_model }}:</p>
+             {% if result_image.endswith('.mp4') %}
+                 <video controls class="mb-5 max-w-full rounded-lg shadow-md">
+                  <source src="{{ url_for('static', filename=result_image) }}" type="video/mp4">
+                </video>
+              {% else %}
+                 <img src="{{ url_for('static', filename=result_image) }}" alt="Hasil Deteksi" class="max-w-full rounded-lg shadow-md" />
+              {% endif %}
+          {% endif %}
+        </div>
+        <p id="section3"></p>
+      </main>
+    </section>
+
+    <section class="flex w-full justify-center items-center">
+      <main class="w-full flex flex-col bg-cover bg-center shadow-2xl bg-white py-10 sm:py-16 px-4 sm:px-8 md:px-16">
+        <div class="text-center sm:text-left mb-10">
+          <p class="text-3xl sm:text-4xl font-bold text-warna1 mb-2">Hasil Evaluasi</p>
+          <p class="text-warna1 max-w-4xl mx-auto sm:mx-0">Evaluasi performa model deteksi plastik menggunakan YOLOv8+EMA dan YOLOv8 Base dengan metrik evaluasi yaitu precision, recall, mAP50, dan mAP50-95.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+          <div class="flex flex-col justify-center items-center w-full">
+            <p class="text-xl font-bold text-warna1 mb-3 text-center">Evaluasi YOLOv8+EMA</p>
+            <div class="overflow-x-auto w-full">
+              <table class="min-w-full text-warna1 border text-center text-sm sm:text-base">
+                <tr class="border-2 bg-gray-100">
+                  <td colspan="4" class="font-semibold bg-warna1 text-white">Data Validasi</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">Precision</td>
+                  <td class="border-2 p-2">Recall</td>
+                  <td class="border-2 p-2">mAP@50</td>
+                  <td class="border-2 p-2">mAP@50-95</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">0.77</td>
+                  <td class="border-2 p-2">0.69</td>
+                  <td class="border-2 p-2">0.80</td>
+                  <td class="border-2 p-2">0.51</td>
+                </tr>
+                <tr class="border-2 bg-gray-100">
+                  <td colspan="4" class="font-semibold bg-warna1 text-white">Data Testing</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">Precision</td>
+                  <td class="border-2 p-2">Recall</td>
+                  <td class="border-2 p-2">mAP@50</td>
+                  <td class="border-2 p-2">mAP@50-95</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">0.82</td>
+                  <td class="border-2 p-2">0.75</td>
+                  <td class="border-2 p-2">0.85</td>
+                  <td class="border-2 p-2">0.56</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-center items-center w-full">
+            <p class="text-xl font-bold text-warna1 mb-3 text-center">Evaluasi YOLOv8 Base</p>
+            <div class="overflow-x-auto w-full">
+              <table class="min-w-full text-warna1 border text-center text-sm sm:text-base">
+                <tr class="border-2 bg-gray-100">
+                  <td colspan="4" class="font-semibold bg-warna1 text-white">Data Validasi</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">Precision</td>
+                  <td class="border-2 p-2">Recall</td>
+                  <td class="border-2 p-2">mAP@50</td>
+                  <td class="border-2 p-2">mAP@50-95</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">0.82</td>
+                  <td class="border-2 p-2">0.65</td>
+                  <td class="border-2 p-2">0.72</td>
+                  <td class="border-2 p-2">0.46</td>
+                </tr>
+                <tr class="border-2 bg-gray-100">
+                  <td colspan="4" class="font-semibold bg-warna1 text-white">Data Testing</td>
+                </tr>
+                <tr class="border-2-2">
+                  <td class="border-2 p-2">Precision</td>
+                  <td class="border-2 p-2">Recall</td>
+                  <td class="border-2 p-2">mAP@50</td>
+                  <td class="border-2 p-2">mAP@50-95</td>
+                </tr>
+                <tr class="border-2">
+                  <td class="border-2 p-2">0.80</td>
+                  <td class="border-2 p-2">0.70</td>
+                  <td class="border-2 p-2">0.81</td>
+                  <td class="border-2 p-2"id="section4">0.50</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center sm:text-right mb-12">
+          <p class="text-3xl sm:text-4xl font-bold text-warna1 mb-4">Dataset</p>
+          <p class="text-warna1 max-w-3xl mx-auto mb-10 text-center sm:text-right sm:ml-auto sm:mr-0">Dataset terdiri dari dua sumber yang diolah melalui tahap preprocessing seperti split by video untuk mencegah data leakage. Berikut contoh sampelnya:</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div class="flex flex-col items-center">
+            <p class="text-xl font-bold text-warna1 mb-4">Trash ICRA 19</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 place-items-center">
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/obj0029_frame0000026.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/obj0075_frame0000154.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/obj0078_frame0000046.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/obj0081_frame0000042.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/obj0002_frame0000025.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/obj0007_frame0000016.jpg')}}" alt="" />
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <p class="text-xl font-bold text-warna1 mb-4">Underwater Trash Video Frame Extraction</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 place-items-center">
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/video_001_000_crop_001_jpg.rf.755f4ef481aa98c477cb476ea4c6ab65.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/video_001_022_crop_003_jpg.rf.33fa004330ff9240bccbf1527b828bd2.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/video_003_064_crop_003_jpg.rf.eec2676243a431af6e35bdcb6826168a.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/video_003_095_crop_003_jpg.rf.487e4f2318dafd10aadfb18593a7512f.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/video_004_197_crop_002_jpg.rf.2d4716eb2d64dc9573c5508d2e31e372.jpg')}}" alt="" />
+              <img class="w-40 h-40" src="{{url_for('static', filename='img/video_005_001_crop_001_jpg.rf.6403272121acaead8a071fd2284c2395.jpg')}}" alt="" />
+             </div>
+          </div>
+        </div>
+      </main>
+    </section>
+    {% include 'components/footer.jinja' %}
+  </body>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="{{url_for("static", filename='js/script.js')}}"></script>
+
+
+</html>
