@@ -14,7 +14,7 @@
         <div class="bg-warna2/50 w-full min-h-screen flex items-center">
           <div class="px-6 sm:px-10 md:px-20 lg:px-32">
             <p class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-4 text-white">Deteksi Sampah Bawah Air</p>
-            <p class="text-base sm:text-lg md:text-xl text-justify mb-6 text-white max-w-[800px]">This website is an AI-based application that automatically detects plastic waste underwater using the YOLO (You Only Look Once) model integrated with the EMA (Efficient Multi-Scale Attention) module. The system can recognize various types of plastic such as bottles, plastic bags, and plastic fragments in underwater images or videos.</p>
+            <p class="text-base sm:text-lg md:text-xl text-justify mb-6 text-white max-w-[800px]">Website ini merupakan aplikasi berbasis AI yang mendeteksi sampah plastik di bawah laut secara otomatis menggunakan model YOLO (You Only Look Once), sistem dapat mengenali berbagai jenis plastik seperti botol, kantong, dan potongan plastik pada gambar atau video bawah laut.</p>
             <button id="scroll-btn" onclick="document.getElementById('scroll-btn').scrollIntoView({ behavior: 'smooth' });" class="text-base sm:text-lg md:text-xl bg-warna3 cursor-pointer text-black px-6 sm:px-8 py-2 font-bold rounded-lg hover:bg-warna3/70 transition">Deteksi</button>
           </div>
         </div>
@@ -102,43 +102,40 @@
             <p class="text-xl font-bold text-warna1 mb-3 text-center">Evaluasi YOLOv8+EMA</p>
             <div class="overflow-x-auto w-full">
               <table class="min-w-full text-warna1 border text-center text-sm sm:text-base">
-                <tr class="border-2 bg-gray-100">
-                  <td colspan="5" class="font-semibold bg-warna1 text-white">Data Testing</td>
-                </tr>
-                <tr class="border-2">
-                  <td class="border-2 p-2">Model</td>
-                  <td class="border-2 p-2">Precision</td>
-                  <td class="border-2 p-2">Recall</td>
-                  <td class="border-2 p-2">mAP@50</td>
-                  <td class="border-2 p-2">mAP@50-95</td>
+                <tr class="border-2 border-warna1 bg-warna1 ">
+                  <td class=" p-2 text-white">Model</td>
+                  <td class=" p-2 text-white">Precision</td>
+                  <td class=" p-2 text-white">Recall</td>
+                  <td class=" p-2 text-white">mAP@50</td>
+                  <td class=" p-2 text-white">mAP@50-95</td>
                 </tr>
                 <tr class="border-2">
                   <td class="border-2 p-2">Model 2</td>
-                  <td class="border-2 p-2">0.82</td>
-                  <td class="border-2 p-2">0.75</td>
-                  <td class="border-2 p-2">0.85</td>
-                  <td class="border-2 p-2">0.56</td>
+                  <td class="border-2 p-2">0.765</td>
+                  <td class="border-2 p-2">0.584</td>
+                  <td class="border-2 p-2">0.654</td>
+                  <td class="border-2 p-2">0.398</td>
                 </tr>
                    <tr class="border-2">
-                  <td class="border-2 p-2">Model 2</td>
-                  <td class="border-2 p-2">0.82</td>
-                  <td class="border-2 p-2">0.75</td>
-                  <td class="border-2 p-2">0.85</td>
-                  <td class="border-2 p-2">0.56</td>
+                  <td class="border-2 p-2">Model 4</td>
+                  <td class="border-2 p-2">0.734</td>
+                  <td class="border-2 p-2">0.575</td>
+                  <td class="border-2 p-2">0.645</td>
+                  <td class="border-2 p-2">0.389</td>
                 </tr>
                    <tr class="border-2">
-                  <td class="border-2 p-2">Model 2</td>
-                  <td class="border-2 p-2">0.82</td>
-                  <td class="border-2 p-2">0.75</td>
-                  <td class="border-2 p-2">0.85</td>
-                  <td class="border-2 p-2">0.56</td>
+                  <td class="border-2 p-2">Model 6</td>
+                  <td class="border-2 p-2">0.792</td>
+                  <td class="border-2 p-2">0.589</td>
+                  <td class="border-2 p-2">0.647</td>
+                  <td class="border-2 p-2">0.394</td>
                 </tr>
                    <tr class="border-2">
-                  <td class="border-2 p-2">Model 2</td>
-                  <td class="border-2 p-2">0.82</td>
-                  <td class="border-2 p-2">0.75</td>
-                  <td class="border-2 p-2">0.85</td>
-                  <td class="border-2 p-2">0.56</td>
+                  <td class="border-2 p-2">Model 8</td>
+                  <td class="border-2 p-2">0.718</td>
+                  <td class="border-2 p-2">0.601</td>
+                  <td class="border-2 p-2">0.648</td>
+                  <td class="border-2 p-2">0.39</td>
                 </tr>
               </table>
             </div>
@@ -148,43 +145,321 @@
             <p class="text-xl font-bold text-warna1 mb-3 text-center">Evaluasi YOLOv8 Base</p>
             <div class="overflow-x-auto w-full">
               <table class="min-w-full text-warna1 border text-center text-sm sm:text-base">
-                <tr class="border-2 bg-gray-100">
-                  <td colspan="5" class="font-semibold bg-warna1 text-white">Data Testing</td>
-                </tr>
-                <tr class="border-2-2">
-                   <td class="border-2 p-2">Model</td>
-                  <td class="border-2 p-2">Precision</td>
-                  <td class="border-2 p-2">Recall</td>
-                  <td class="border-2 p-2">mAP@50</td>
-                  <td class="border-2 p-2">mAP@50-95</td>
+               <tr class="border-2 border-warna1 bg-warna1 ">
+                  <td class=" p-2 text-white">Model</td>
+                  <td class=" p-2 text-white">Precision</td>
+                  <td class=" p-2 text-white">Recall</td>
+                  <td class=" p-2 text-white">mAP@50</td>
+                  <td class=" p-2 text-white">mAP@50-95</td>
                 </tr>
                 <tr class="border-2">
                    <td class="border-2 p-2">Model 1</td>
-                  <td class="border-2 p-2">0.80</td>
-                  <td class="border-2 p-2">0.70</td>
-                  <td class="border-2 p-2">0.81</td>
-                  <td class="border-2 p-2"id="section4">0.50</td>
+                  <td class="border-2 p-2">0.687</td>
+                  <td class="border-2 p-2">0.543</td>
+                  <td class="border-2 p-2">0.585</td>
+                  <td class="border-2 p-2"id="section4">0.348</td>
                 </tr>
                  <tr class="border-2">
-                   <td class="border-2 p-2">Model 1</td>
-                  <td class="border-2 p-2">0.80</td>
-                  <td class="border-2 p-2">0.70</td>
-                  <td class="border-2 p-2">0.81</td>
-                  <td class="border-2 p-2"id="section4">0.50</td>
+                   <td class="border-2 p-2">Model 3</td>
+                  <td class="border-2 p-2">0.784</td>
+                  <td class="border-2 p-2">0.518</td>
+                  <td class="border-2 p-2">0.606</td>
+                  <td class="border-2 p-2"id="section4">0.388</td>
                 </tr>
                  <tr class="border-2">
-                   <td class="border-2 p-2">Model 1</td>
-                  <td class="border-2 p-2">0.80</td>
-                  <td class="border-2 p-2">0.70</td>
-                  <td class="border-2 p-2">0.81</td>
-                  <td class="border-2 p-2"id="section4">0.50</td>
+                   <td class="border-2 p-2">Model 5</td>
+                  <td class="border-2 p-2">0.764</td>
+                  <td class="border-2 p-2">0.557</td>
+                  <td class="border-2 p-2">0.619</td>
+                  <td class="border-2 p-2"id="section4">0.373</td>
                 </tr>
                  <tr class="border-2">
-                   <td class="border-2 p-2">Model 1</td>
-                  <td class="border-2 p-2">0.80</td>
-                  <td class="border-2 p-2">0.70</td>
-                  <td class="border-2 p-2">0.81</td>
-                  <td class="border-2 p-2"id="section4">0.50</td>
+                   <td class="border-2 p-2">Model 7</td>
+                  <td class="border-2 p-2">0.792</td>
+                  <td class="border-2 p-2">0.517</td>
+                  <td class="border-2 p-2">0.6</td>
+                  <td class="border-2 p-2"id="section4">0.383
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                  </td>
                 </tr>
               </table>
             </div>
