@@ -102,8 +102,8 @@ print(f"Modul C2f_EMA terdaftar: {hasattr(U, 'C2f_EMA')}")
 # model = YOLO('Model/yolov8_training_runs/underwater_trash_detection/weights/best.pt')
 # model_base = YOLO('Model/Model YOLO/yolov8_training_runs/underwater_trash_detection/weights/best.pt')
 # model_ema = YOLO('Model/Model YOLO EMA/yolov8_training_runs/underwater_trash_detection/weights/best.pt')
-model_base = YOLO('C:/Skripsi/app/model 3.pt')
-model_ema = YOLO('C:/Skripsi/app/model 2.pt')
+model_base = YOLO('C:/Skripsi/app/model/model 3.pt')
+model_ema = YOLO('C:/Skripsi/app/model/model 2.pt')
 
 def handle_preview(file, selected_model):
     if not file:
