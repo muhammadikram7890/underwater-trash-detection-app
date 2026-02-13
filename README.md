@@ -85,7 +85,7 @@ http://127.0.0.1:5000/
 
 The full training notebook is available at:
 
-👉 [https://github.com/your-username/nama-repo/blob/main/notebooks/training_yolov8.ipynb](https://www.kaggle.com/code/ikram0703/underwater-trash-detection-c2f-ema-tvsbd)
+👉 [https://www.kaggle.com/code/ikram0703/underwater-trash-detection-c2f-ema-tvsbd](https://www.kaggle.com/code/ikram0703/underwater-trash-detection-c2f-ema-tvsbd)
 
 ---
 
